@@ -10,7 +10,7 @@ namespace GetUnsubscribes
 		static void Main(string[] args)
 		{
 			//Get the items out of the command line
-			if (args.Length < 2)
+			if (args.Length != 2)
 			{
 				Console.WriteLine("usage: GetUnsubscribes <username> <password>");
 				return;
@@ -22,12 +22,11 @@ namespace GetUnsubscribes
 			//second item it the sendgrid password
 			string pwd = args[1];
 
-			var client = new RestClient();
-			client.BaseUrl = "https://api.sendgrid.com";
+			var client = new RestClient("https://api.sendgrid.com");
 			var request = new RestRequest("api/unsubscribes.get.json");
-			request.AddParameter("date", 1); // used on every request
 			request.AddParameter("api_user", username); // used on every request
 			request.AddParameter("api_key", pwd); // used on every request
+			request.AddParameter("date", 1);
 
 			IRestResponse response = client.Execute(request);
 			string responseText = response.Content;

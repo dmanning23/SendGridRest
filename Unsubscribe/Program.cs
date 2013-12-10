@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using RestSharp;
+using System;
+using System.Collections.Generic;
 
 namespace Unsubscribe
 {
@@ -13,7 +10,7 @@ namespace Unsubscribe
 		static void Main(string[] args)
 		{
 			//Get the items out of the command line
-			if (args.Length < 2)
+			if (args.Length != 2)
 			{
 				Console.WriteLine("usage: Unsubscribe <username> <password> <email>");
 				return;
@@ -29,8 +26,7 @@ namespace Unsubscribe
 			string email = args[2];
 
 			//hit the sendgrid rest endpoint
-			var client = new RestClient();
-			client.BaseUrl = "https://api.sendgrid.com";
+			var client = new RestClient("https://api.sendgrid.com");
 			var request = new RestRequest("api/unsubscribes.add.json");
 			request.AddParameter("api_user", username); // used on every request
 			request.AddParameter("api_key", pwd); // used on every request

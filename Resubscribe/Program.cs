@@ -10,7 +10,7 @@ namespace Resubscribe
 		static void Main(string[] args)
 		{
 			//Get the items out of the command line
-			if (args.Length < 2)
+			if (args.Length != 2)
 			{
 				Console.WriteLine("usage: Resubscribe <username> <password> <email>");
 				return;
@@ -26,8 +26,7 @@ namespace Resubscribe
 			string email = args[2];
 
 			//hit the sendgrid rest endpoint
-			var client = new RestClient();
-			client.BaseUrl = "https://api.sendgrid.com";
+			var client = new RestClient("https://api.sendgrid.com");
 			var request = new RestRequest("api/unsubscribes.delete.json");
 			request.AddParameter("api_user", username); // used on every request
 			request.AddParameter("api_key", pwd); // used on every request
