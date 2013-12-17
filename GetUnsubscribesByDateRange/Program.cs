@@ -25,21 +25,9 @@ namespace GetUnsubscribesByDateRange
 
 			//third item is the start date
 			DateTime start = Convert.ToDateTime(args[2]);
-			StringBuilder strStart = new StringBuilder();
-			strStart.Append(start.Year);
-			strStart.Append("-");
-			strStart.Append(start.Month);
-			strStart.Append("-");
-			strStart.Append(start.Day);
 
 			//last item is the end date
 			DateTime end = Convert.ToDateTime(args[3]);
-			StringBuilder strEnd = new StringBuilder();
-			strEnd.Append(end.Year);
-			strEnd.Append("-");
-			strEnd.Append(end.Month);
-			strEnd.Append("-");
-			strEnd.Append(end.Day);
 
 			var client = new RestClient("https://api.sendgrid.com");
 			var request = new RestRequest("api/unsubscribes.get.json");
@@ -66,14 +54,7 @@ namespace GetUnsubscribesByDateRange
 		/// <returns>correct string for SendGrid</returns>
 		public static string ConvertToSendGridDateTime(DateTime dt)
 		{
-			StringBuilder strDateTime = new StringBuilder();
-			strDateTime.Append(dt.Year);
-			strDateTime.Append("-");
-			strDateTime.Append(dt.Month);
-			strDateTime.Append("-");
-			strDateTime.Append(dt.Day);
-
-			return strDateTime.ToString();
+			return string.Format("{0:yyyy-MM-dd}", dt);
 		}
 
 		public class Unsubscription
